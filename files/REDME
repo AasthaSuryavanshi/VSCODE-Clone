@@ -1,0 +1,13 @@
+// CONSOLE.LOG(fules[0].isDirectory().files[0])
+// res.render(index)
+// a , get type form , post type form --- jab kisi chez pr click krna page me kuch change ho
+// fs.writefile -- to create file  --   `./${}/${}`
+//  res.redirect - to redirect page.
+fs.mkdir-- to create folder.
+// res.unlink()-- use to delete only files.
+fs.rmdir -- use to remove folder
+
+utf8 - used to read n convert buffer to english. used in fs.readdir
+contenteditable - used in html to edit
+textarea- tag in html used to edit n save html on user end
+

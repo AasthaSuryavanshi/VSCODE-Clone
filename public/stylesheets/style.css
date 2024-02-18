@@ -1,0 +1,146 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: "gilroy";
+}
+body,html{
+  width: 100%;
+  height: 100%;
+}
+#main{
+  width: 100%;
+  height: 100%;
+  background-color: #181818;
+  display: flex;
+  /* padding: 1vh 1vh;   */
+}
+#left{
+  padding: 4vh 2vh;
+  height: 100%;
+  width: 20%;
+  border: 1px solid cyan;
+  /* background-color: #fff; */
+}
+#right{
+  
+  height: 100%;
+  width: 80%;
+  border: 1px solid cyan;
+
+  /* background-color: #b63838; */
+}
+.folder{
+  padding: 1vh 0vh;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.icons{
+  display: flex;
+  gap: 1.3vh;
+  font-size: 2.2vh;
+  /* font-weight: 100; */
+}
+.files{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1vh 3vh;
+}
+.files h5{
+  font-weight: 300;
+}
+.files .icons i{
+  display: none;
+}
+.files:hover .icons i{
+  display: initial;
+}
+.folder:hover,.files:hover{
+border: 1px dashed orangered;
+background-color: #ffffff1b;
+}
+#orang i{
+  color: rgb(252, 76, 12);
+}
+#blue i{
+  color: rgb(29, 29, 253);
+}
+form i{
+  display: initial;
+  position: absolute;
+  transform: translate(5vh,0.5vh);
+  /* background-color: #fff; */
+}
+form input{
+  outline: rgb(118, 118, 252);
+  border: none;
+  border-radius: 20px;
+  padding: 0 2vh;
+}
+form input::placeholder{
+  color: #fff;
+  text-align: center;
+  
+}
+form input:focus::placeholder{
+  color: transparent;
+}
+a{
+  text-decoration: none;
+}
+
+#right #nav{
+  width: 100%;
+  height: 7vh;
+  padding: 1vh 2vh;
+  border: 1px solid cyan;
+}
+#right #nav #filetabs{
+  width: fit-content;
+  height: 5vh;
+  padding: 1vh 1vh;
+  border: 1px dashed orangered;
+  background-color: #ffffff24;
+}
+.icons i:hover{
+  background-color: #ffffff24;
+  border: 1px dashed orangered;
+
+}
+#right #nav #filetabs h5{
+  font-size: 2vh;
+  font-weight: 300;
+}
+#right #nav #filetabs i{
+  margin-left: 1vh;
+  font-size: 2.5vh;
+  font-weight: 300;
+}
+#right #nav #filetabs i:hover{
+  border: 1px dashed orangered;
+  border-radius: 1vh;
+}
+#right #text{
+  width: 100%;
+  height: 100%;
+  /* background-color: #e61b1b; */
+}
+#right #text #save-butt{
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  padding: 1vh 4vh;
+  background-color: orangered;
+  color: #000;
+}
+#right #text textarea{
+  width: 100%;
+  height: 95vh;
+  background-color: transparent;
+  font-size: 18px;
+  padding: 3vh 4vh;
+}

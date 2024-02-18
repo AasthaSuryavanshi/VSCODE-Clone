@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VSCODE</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="main">
+      <div id="left">
+        <div class="folder">          
+          <h4><i class="ri-arrow-right-s-line"></i><%= folder%></h4>
+          <div class="icons">
+            <i id="createfile" class="ri-file-add-fill"></i>
+            <i id="createFolder" class="ri-folder-add-fill"></i>
+            <a href="/fileRefreash"  style="text-decoration: none;"><i class="ri-refresh-line"></i></a>
+            <i class="ri-folder-chart-line"></i>
+          </div>
+        </div>
+
+        <form id="form-input-file" action="/fileCreate" style="display: none;">
+          <i id="file-search-icon" class="ri-search-line"></i><input type="text" name="fileSearch" placeholder= "Enter File Name" style="width: 220px; height: 3vh; margin: 0vh 3vh; background-color: #ffffff42;" >
+        </form>
+        
+        <form id="form-input-folder" action="/folderCreate" style="display: none;">
+          <i id="folder-search-icon" class="ri-search-line"></i><input type="text" name="folderSearch" placeholder= "Enter Folder Name" style="width: 220px; height: 3vh; margin: 0vh 3vh; background-color: #ffffff42;" >
+        </form>
+
+        <div class="file-container">
+          <% files.forEach(function(file){ %>
+            <div class="files">
+              <div style="display: flex; align-items: center; gap: 1vh;" class="file-icon">
+                <% if(file.isDirectory()){ %>
+                  <span id="orang" style="color: orangered;"><i class="ri-folder-3-fill"></i></span>
+                <% }else{ %>
+                   <span id="blue" style="color: blue"><i class="ri-file-fill"></i></span>
+                 <%  } %>
+                 <a href="/"><%= file.name%></a>
+                </div>
+                <div class="icons">
+                  <i id="edit" class="ri-pencil-fill"></i>
+                  
+                <% if(file.isDirectory()){ %>
+                  <a href="/delete/folder/<%= file.name %>"> 
+                    <i class="ri-delete-bin-6-line"></i>
+                  </a>
+                <% }else{ %>
+                  <a href="/delete/file/<%= file.name %>"> 
+                  <i class="ri-delete-bin-6-line"></i>
+                </a>
+                <% } %>
+              </div> 
+            </div>
+          <% }) %>
+          
+        </div>
+      </div>  
+      <div id="right">
+        <div id="nav">
+          <div id="filetabs">
+            <h5> <%= filenamesend %><i class="ri-close-line"></i></h5>
+          </div>
+        </div>
+        <div id="text">
+          <form id="formsub" action="/file/filesave/<%= filenamesend %>" method="post">
+            <textarea name="writing"><%= datasend%></textarea>
+            <input id="save-butt" type="submit">
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </body>
+  <script>
+    document.addEventListener("click", function(dets){
+      alert();
+    })
+    document.querySelector("#createfile").addEventListener("click",function(){
+      document.querySelector("#form-input-file").style.display="initial";   
+      document.querySelector("#form-input-folder").style.display="none";   
+      document.querySelector("form input").addEventListener("click",function(){
+        document.querySelector("form #file-search-icon").style.display="none";
+      })
+    });
+    document.querySelector("#createFolder").addEventListener("click",function(){
+      document.querySelector("#form-input-folder").style.display="initial";  
+      document.querySelector("#form-input-file").style.display="none";   
+      document.querySelector("#form-input-folder input").addEventListener("click",function(){
+        document.querySelector("form #folder-search-icon").style.display="none";
+      })
+    });
+
+  </script>
+</html>
