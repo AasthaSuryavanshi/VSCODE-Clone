@@ -143,4 +143,6 @@ a{
   background-color: transparent;
   font-size: 18px;
   padding: 3vh 4vh;
+  outline: none;
+  border: none;
 }

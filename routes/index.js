@@ -53,4 +53,13 @@ router.post('/file/filesave/:filenamesend', function(req, res, next){
 
 })
 
+router.post(`/update/:updatedFileName`, function(req, res, next){
+  fs.rename(`./${folder}/${req.params.updatedFileName}`,`./${folder}/${req.body.editInp}`,function(err){
+    res.redirect('back');
+
+  })
+})
+
+
+
 module.exports = router;

@@ -4,9 +4,14 @@
     <title>VSCODE</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+    <link href="jquery-linedtextarea.css" rel="stylesheet">
+
+
+    
   </head>
   <body>
-    <div id="main">
+    <div id="main" style="overflow: hidden;">
       <div id="left">
         <div class="folder">          
           <h4><i class="ri-arrow-right-s-line"></i><%= folder%></h4>
@@ -35,10 +40,14 @@
                 <% }else{ %>
                    <span id="blue" style="color: blue"><i class="ri-file-fill"></i></span>
                  <%  } %>
-                 <a href="/"><%= file.name%></a>
-                </div>
+                 
+                 <a id="edit" href="/"><%= file.name%></a>
+                 <form action="/update/<%= file.name %>" method="post" style="position: absolute; display: none;">
+                  <input id="edit-inp" name="editInp" type="text" value="<%= file.name %>" style="margin-left: 3vh ;z-index: 10; background-color:rgba(255, 235, 205, 0.148); outline: none; font-size: medium; padding:1px 3px; ">
+               </form>
+                              </div>
                 <div class="icons">
-                  <i id="edit" class="ri-pencil-fill"></i>
+                  <i  onclick="editname()" id="edit" class="ri-pencil-fill"></i>
                   
                 <% if(file.isDirectory()){ %>
                   <a href="/delete/folder/<%= file.name %>"> 
@@ -58,12 +67,20 @@
       <div id="right">
         <div id="nav">
           <div id="filetabs">
-            <h5> <%= filenamesend %><i class="ri-close-line"></i></h5>
+            <h5> <%= filenamesend %>
+              <a href="/">
+                <i class="ri-close-line"></i></h5>
+              </a>
+
           </div>
         </div>
-        <div id="text">
+        <div id="text" style="display: flex; align-items: center; justify-content: center;">
+          <!-- <div id="textno" style="display: flex;align-items: center;justify-content: center;flex-direction: column;height: 100%; width: 30px; border: 2px solid white; color: yellow;margin-top: 5vh;"> 1.</div> -->
           <form id="formsub" action="/file/filesave/<%= filenamesend %>" method="post">
-            <textarea name="writing"><%= datasend%></textarea>
+            <div id="textdiv" style="height: 100%; width: 77vw; ">
+
+              <textarea id="numbered-textarea" rows="10" cols="50" name="writing"> <%= datasend %></textarea>
+            </div>
             <input id="save-butt" type="submit">
           </form>
         </div>
@@ -71,10 +88,71 @@
       
     </div>
   </body>
+  
   <script>
-    document.addEventListener("click", function(dets){
-      alert();
-    })
+  
+  function addnotoline(){
+
+  // Function to add line numbers to a textarea
+function addLineNumbers(textarea) {
+  var lines = textarea.value.split('\n');
+  var numberedLines = '';
+
+  for (var i = 0; i < lines.length; i++) {
+    // Add line number only if it's not already present
+    if (!/^\d+\.\s/.test(lines[i])) {
+      numberedLines += i + 1 + '. ' + lines[i];
+    } else {
+      numberedLines += lines[i];
+    }
+    // Add newline character if it's not the last line
+    if (i !== lines.length - 1) {
+      numberedLines += '\n';
+    }
+  }
+
+  textarea.value = numberedLines;
+}
+
+// Get the textarea element
+var textarea = document.getElementById('numbered-textarea');
+// Call the function initially
+addLineNumbers(textarea);
+
+// Add event listener for keydown to handle Enter key
+textarea.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault(); // Prevent default behavior of Enter key
+    var cursorPos = textarea.selectionStart; // Get cursor position
+    var textBeforeCursor = textarea.value.substring(0, cursorPos); // Get text before cursor
+    var textAfterCursor = textarea.value.substring(cursorPos); // Get text after cursor
+    var linesBeforeCursor = textBeforeCursor.split('\n'); // Split text before cursor into lines
+    var currentLineNumber = linesBeforeCursor.length; // Get current line number
+    var currentLineText = linesBeforeCursor[currentLineNumber - 1]; // Get text of current line
+
+    // Check if the current line already starts with a number
+    if (!/^\d+\.\s/.test(currentLineText)) {
+      // If not, add line number to the new line
+      textarea.value = textBeforeCursor + '\n' + (currentLineNumber) + '. ' + textAfterCursor;
+
+    } else {
+      // If it already has a number, simply move the cursor to a new line
+      textarea.value = textBeforeCursor + '\n' + textAfterCursor;
+    }
+
+    // Move cursor to the beginning of the new line
+    textarea.setSelectionRange(cursorPos + 3, cursorPos + 3);
+    
+    // Update line numbers after handling Enter key
+    addLineNumbers(textarea);
+  }
+
+});
+
+}
+addnotoline();
+
+    
     document.querySelector("#createfile").addEventListener("click",function(){
       document.querySelector("#form-input-file").style.display="initial";   
       document.querySelector("#form-input-folder").style.display="none";   
@@ -89,6 +167,9 @@
         document.querySelector("form #folder-search-icon").style.display="none";
       })
     });
+
+
+    
 
   </script>
 </html>
